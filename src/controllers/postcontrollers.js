@@ -13,7 +13,8 @@ export const createPost = async (req, res, next) => {
       createdProduct: savePost,
     });
   } catch (error) {
-    res.status(500).json({ error: error });
+    res.status(500).json({ error: error.message });
+    // next(error);
   }
 };
 
@@ -31,7 +32,7 @@ export const getPosts = async (req, res, next) => {
 
 export const updatePost = async (req, res, next) => {
   try {
-    const id = req.params.Pid;
+    const id = req.params.postId;
     const { title, description } = req.body;
     const updatePost = {
       title: title,
@@ -39,7 +40,7 @@ export const updatePost = async (req, res, next) => {
     };
     const post = await Posts.findByIdAndUpdate(id, updatePost, { new: true });
     res.status(201).json({
-      message: "Product updated successfully",
+      message: "Product updated successfully hai",
       post: post,
     });
   } catch (error) {
@@ -48,11 +49,11 @@ export const updatePost = async (req, res, next) => {
 };
 
 export const singlePost = async (req, res, next) => {
-  const id = req.params.Pid;
+  const id = req.params.postId;
   try {
     const post = await Posts.findById(id);
     res.status(200).json({
-      message: "Post retrive successfully",
+      message: "Post retrive successfully ",
       post: post,
     });
   } catch (error) {
@@ -61,7 +62,7 @@ export const singlePost = async (req, res, next) => {
 };
 
 export const deletePost = async (req, res, next) => {
-  const id = req.params.Pid;
+  const id = req.params.postId;
   try {
     const post = await Posts.findByIdAndDelete(id);
     res.status(200).json({
